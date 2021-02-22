@@ -1,0 +1,125 @@
+import random
+import json
+data = json.load(open("data.json"))
+
+
+#Main Hangman Game Function
+def hangman():
+    
+    #word = random.choice(["pugger" , "littlepugger" , "tiger" , "superman" , "thor" , "pokemon" , "avengers" , "savewater" , "earth" , "annable" ])
+    word = random.choice(list(data.keys()))
+    validLetters = 'abcdefghijklmnopqrstuvwxyz'
+    turns = 10
+    guessmade = ''
+
+    while len(word) > 0:
+        main = ""
+        missed = 0
+
+        for letter in word:
+            if letter in guessmade:
+                main = main + letter
+            else:
+                main = main + "_" + " "
+        if main == word:
+            print(main)
+            print("You win!")
+            break
+
+        print("Guess the word:" , main)
+        guess = input()
+
+        if guess in validLetters:
+            guessmade = guessmade + guess
+        else:
+            print("Enter a valid character")
+            guess = input()
+
+        if guess not in word:
+            turns = turns - 1
+            if turns == 9:
+                print("9 turns left")
+                print("  --------  ")
+            if turns == 8:
+                print("8 turns left")
+                print("  --------  ")
+                print("     O      ")
+            if turns == 7:
+                print("7 turns left")
+                print("  --------  ")
+                print("     O      ")
+                print("     |      ")
+            if turns == 6:
+                print("6 turns left")
+                print("  --------  ")
+                print("     O      ")
+                print("     |      ")
+                print("    /       ")
+            if turns == 5:
+                print("5 turns left")
+                print("  --------  ")
+                print("     O      ")
+                print("     |      ")
+                print("    / \     ")
+            if turns == 4:
+                print("4 turns left")
+                print("  --------  ")
+                print("   \ O      ")
+                print("     |      ")
+                print("    / \     ")
+            if turns == 3:
+                print("3 turns left")
+                print("  --------  ")
+                print("   \ O /    ")
+                print("     |      ")
+                print("    / \     ")
+            if turns == 2:
+                print("2 turns left")
+                print("  --------  ")
+                print("   \ O /|   ")
+                print("     |      ")
+                print("    / \     ")
+            if turns == 1:
+                print("1 turns left")
+                print("Last breaths counting, Take care!")
+                print("  --------  ")
+                print("   \ O_|/   ")
+                print("     |      ")
+                print("    / \     ")
+            if turns == 0:
+                print("You loose")
+                print("You let a kind man die")
+                print("  --------  ")
+                print("     O_|    ")
+                print("    /|\      ")
+                print("    / \     ")
+                break
+
+
+def dict(word):
+    
+    word = word.lower()
+    if word in data:
+        print(data[word])
+    elif word.title() in data:
+        print(data[word.title()])
+    elif word.upper() in data:
+        print(data[word.upper()])
+                    
+
+while(True):            
+    name = input("Enter your name: ")
+    print("Welcome!" , name )
+    print("-------------------*****-------------------")
+    print("try to guess the word in less than 10 attempts")
+    hangman()
+    print("-------------------*****-------------------")
+    print('actual word is :',word, end='')
+    print(word+': '+str(dict(word)))
+    
+    print('Want to Play Again')
+    print('Enter y to Play Again: ') 
+    again = input()
+    again.lower()
+    if again != 'y':
+        break
